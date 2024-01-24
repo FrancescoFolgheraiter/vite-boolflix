@@ -1,9 +1,5 @@
 @use "partials/variables.scss" as *;
 @use "partials/mixins.scss" as *;
 
-h1{
-    text-align: center;
-    font-size: bold;
-    text-transform: uppercase;
-    color:lightseagreen;
-}
+//importazione bootstrap
+@import "bootstrap/scss/bootstrap";

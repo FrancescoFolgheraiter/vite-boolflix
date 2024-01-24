@@ -29,7 +29,7 @@ export default{
 	<AppFooter/>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use"assets/scss/main.scss" as *;
-@import "assets/scss/partials/reset.scss";
+
 </style>

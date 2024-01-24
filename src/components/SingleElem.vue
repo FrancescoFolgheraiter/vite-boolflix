@@ -54,7 +54,7 @@ export default{
 				<i class="fa-solid fa-star" v-for="(elem,i) in 5" :key="i" :class="{active:film.vote_average >= i}"></i>
 			</div>
 			<div>
-				<img v-if="(film.poster_path != null)" :src="'http://image.tmdb.org/t/p/w300'+ film.poster_path" alt="">
+				<img v-if="(film.poster_path != null)" :src="'http://image.tmdb.org/t/p/w342'+ film.poster_path" alt="">
 				<div v-else>Immagine non trovata</div>
 			</div>
 		</div>
@@ -67,12 +67,22 @@ export default{
 	width: 250px;
 	border:3px solid white;
 	border-radius: 15px;
+	position: relative;
+	overflow: hidden;
 	.active{
 		color:orange;
 	}
 
 	:last-child img {
 		width:100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 1;
+
+		&:hover{
+			opacity: 0.3;
+		}
 	}
 }
 </style>

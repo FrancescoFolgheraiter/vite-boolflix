@@ -22,18 +22,6 @@ export default{
 
 <template>
 	<main>
-		<!--parte che successivamente andrò ad inserire in un componente search-->
-		<div class="row">
-			<div class="col-6"></div>
-			<div class="col-6">
-				<form @submit.prevent="$emit('filmSearch')" action="">
-					<input type="text" v-model="store.searchFilm" >
-					<button type="submit">
-						Search
-					</button>
-				</form>
-			</div>
-		</div>
 		<!---->
 		<div class="row">
 			<SingleElem class="col-3" v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title"/>

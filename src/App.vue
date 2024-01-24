@@ -56,12 +56,15 @@ export default{
 </script>
 
 <template>
-	<AppHeader/>
-	<AppMain @filmSearch="getFilmsApi()"/>
+	<AppHeader @filmSearch="getFilmsApi()"/>
+	<AppMain />
 
 </template>
 
 <style lang="scss">
 @use"assets/scss/main.scss" as *;
+body{
+	background-color: black;
+}
 
 </style>

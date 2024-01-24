@@ -22,23 +22,34 @@ export default{
 		getFilmsApi(){
 			this.store.films = []
 			console.log("partita function api")
+			//chiamata API per ricercare i film
 			axios.get(this.store.urlApiFilms, {
 				params:{
 					query:this.store.searchFilm.length > 0 ? this.store.searchFilm:null,
 					language: "it"
 				}
 			}).then((response) => {
-				console.log(response)
 				this.store.films= response.data.results
-				console.log("film:",this.store.films)
 			}).catch((error) => {
 				this.store.films = []
 				console.log("Errore ",error)
 			})
+			
+			//chiamata API per ricercare serie tv
+			this.store.series = [];
+			axios.get(this.store.urlApiTv, {
+				params:{
+					query: this.store.searchFilm.length > 0 ? this.store.searchFilm:null,
+					language: "it"
+				}
+			}).then((response) => {
+				this.store.series= response.data.results	
+			}).catch((error) => {
+				this.store.series= []
+				console.log("Errore ",error)
+			})
+			
 		}
-	},
-	mounted(){
-		this.getFilmsApi()
 	}
 }
 

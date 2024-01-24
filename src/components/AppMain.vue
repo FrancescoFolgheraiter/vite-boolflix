@@ -1,6 +1,6 @@
 <script>
 //importazione elemento SingleFilm
-import SingleFilm from './SingleFilm.vue';
+import SingleElem from './SingleElem.vue';
 //importazione store
 import { store } from '../store.js';
 
@@ -11,7 +11,7 @@ export default{
 		};
 	},
 	components:{
-		SingleFilm		
+		SingleElem		
 	},
 	methods:{
 
@@ -36,7 +36,13 @@ export default{
 		</div>
 		<!---->
 		<div class="row">
-			<SingleFilm class="col-3" v-for="(elem, i) in this.store.films" :kay="i" :film="elem"/>
+			<SingleElem class="col-3" v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title"/>
+		</div>
+		<div>
+			serie tv
+		</div>
+		<div class="row">
+			<SingleElem class="col-3" v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name"/>
 		</div>
 
 	</main>

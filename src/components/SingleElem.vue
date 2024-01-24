@@ -1,13 +1,14 @@
 <script>
-//importazione axios
-import axios from 'axios';
+
 export default{
 	data() {
 		return{
 		};
 	},
 	props:{
-		film:Object	
+		film:Object,
+		name:String,
+		originalName:String	
 	},
 	components:{
 		
@@ -36,16 +37,19 @@ export default{
 <template>
 	<div class="my-card text-center ">
 		<div>
-			{{ film.title }}
+			{{ name }}
 		</div>
 		<div>
-			{{ film.original_title }}
+			{{ originalName }}
 		</div>
 		<div>
 			<img :src="'https://flagsapi.com/'+ film.original_language +'/flat/64.png'" :alt="film.original_language">
 		</div>
 		<div>
 			{{ film.vote_average }}
+		</div>
+		<div>
+			<img :src="'http://image.tmdb.org/t/p/w500'+ film.backdrop_path" alt="">
 		</div>
 	</div>
 </template>
@@ -54,5 +58,8 @@ export default{
 .my-card{
 	height: 350px;
 	width: 250px;
+	:last-child img {
+		width:100%
+	}
 }
 </style>

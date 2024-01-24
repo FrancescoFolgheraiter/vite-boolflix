@@ -25,31 +25,38 @@ export default{
 			else if(this.film.original_language == "KO"){
 				this.film.original_language = "KR"
 			}
+		},
+		updateVote(){
+			this.film.vote_average = Math.ceil(Math.round(this.film.vote_average) / 2);
 		}
 	},
 	mounted(){
-		this.createCountryFlag();	
+		this.createCountryFlag();
+		this.updateVote();	
 	}
 }
 
 </script>
 
 <template>
-	<div class="my-card text-center ">
-		<div>
-			{{ name }}
-		</div>
-		<div>
-			{{ originalName }}
-		</div>
-		<div>
-			<img :src="'https://flagsapi.com/'+ film.original_language +'/flat/64.png'" :alt="film.original_language">
-		</div>
-		<div>
-			{{ film.vote_average }}
-		</div>
-		<div>
-			<img :src="'http://image.tmdb.org/t/p/w500'+ film.backdrop_path" alt="">
+	<div class="col-12 col-sm-6 col-md-3">
+		<div class="my-card text-center mb-3 mt-3 text-white">
+			<div>
+				{{ name }}
+			</div>
+			<div>
+				{{ originalName }}
+			</div>
+			<div>
+				<img :src="'https://flagsapi.com/'+ film.original_language +'/flat/64.png'" :alt="film.original_language">
+			</div>
+			<div>
+				<i class="fa-solid fa-star" v-for="(elem,i) in 5" :key="i" :class="{active:film.vote_average >= i}"></i>
+			</div>
+			<div>
+				<img v-if="(film.poster_path != null)" :src="'http://image.tmdb.org/t/p/w300'+ film.poster_path" alt="">
+				<div v-else>Immagine non trovata</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -58,8 +65,14 @@ export default{
 .my-card{
 	height: 350px;
 	width: 250px;
+	border:3px solid white;
+	border-radius: 15px;
+	.active{
+		color:orange;
+	}
+
 	:last-child img {
-		width:100%
+		width:100%;
 	}
 }
 </style>

@@ -33,6 +33,7 @@ export default{
 </template>
 
 <style lang ="scss" scoped>
+
 header{
 	background-color: #101010;
 	.container-logo{

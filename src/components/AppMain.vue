@@ -22,16 +22,18 @@ export default{
 
 <template>
 	<main>
+		<div class="container">
+			<div class="row">
+				<SingleElem  v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title"/>
+			</div>
+			<div>
+				serie tv
+			</div>
+			<div class="row">
+				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name"/>
+			</div>
+		</div>
 		<!---->
-		<div class="row">
-			<SingleElem class="col-3" v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title"/>
-		</div>
-		<div>
-			serie tv
-		</div>
-		<div class="row">
-			<SingleElem class="col-3" v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name"/>
-		</div>
 
 	</main>
 </template>

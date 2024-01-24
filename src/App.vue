@@ -29,10 +29,10 @@ export default{
 					language: "it"
 				}
 			}).then((response) => {
-				this.store.films= response.data.results
+				this.store.films= response.data.results;
 			}).catch((error) => {
-				this.store.films = []
-				console.log("Errore ",error)
+				this.store.films = [];
+				console.log("Errore ",error);
 			})
 			
 			//chiamata API per ricercare serie tv
@@ -43,12 +43,12 @@ export default{
 					language: "it"
 				}
 			}).then((response) => {
-				this.store.series= response.data.results	
+				this.store.series= response.data.results;	
 			}).catch((error) => {
-				this.store.series= []
-				console.log("Errore ",error)
+				this.store.series= [];
+				console.log("Errore ",error);
 			})
-			
+			this.store.searchFilm = "";
 		}
 	}
 }

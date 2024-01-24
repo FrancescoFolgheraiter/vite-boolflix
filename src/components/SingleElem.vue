@@ -1,8 +1,11 @@
 <script>
+//importazione axios
+import axios from 'axios';
 
 export default{
 	data() {
 		return{
+			actors:[]
 		};
 	},
 	props:{
@@ -40,6 +43,19 @@ export default{
 		},
 		updateVote(){
 			this.film.vote_average = Math.ceil(Math.round(this.film.vote_average) / 2);
+		},
+		getActorsApi(){
+			const urlActors = "https://api.themoviedb.org/3/movie/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
+			//chiamata API per ricercare i degli attori del film
+			axios.get(urlActors)
+			.then((response) => {
+				for (let i = 0; i < 4; i++) {
+					this.actors.push(response.data.cast[i].name)
+				}
+			}).catch((error) => {
+				this.actors = []
+				console.log("Errore ",error);
+			});
 		}
 	},
 	mounted(){
@@ -52,7 +68,7 @@ export default{
 
 <template>
 	<div class="col-12 col-sm-6 col-md-3">
-		<div class="my-card text-center mb-3 mt-3 text-white">
+		<div class="my-card text-center mb-3 mt-3 text-white" @click="getActorsApi()">
 			<div class="mt-2">
 				{{ name }}
 			</div>
@@ -67,6 +83,9 @@ export default{
 			</div>
 			<div>
 				{{film.overview}}
+			</div>
+			<div class="actors" v-if="(this.actors.length>0)">
+				<div v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
 			</div>
 			<div>
 				<img v-if="(film.poster_path != null)" :src="'http://image.tmdb.org/t/p/w342'+ film.poster_path" alt="">
@@ -88,6 +107,12 @@ export default{
 	font-weight: bold;
 	.active{
 		color:orange;
+	}
+	.actors{
+		position:absolute;
+		top:0;
+		left:0%;
+		z-index: 1;
 	}
 
 	:last-child img {

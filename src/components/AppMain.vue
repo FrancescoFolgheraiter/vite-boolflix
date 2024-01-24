@@ -40,7 +40,6 @@ export default{
 				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name"/>
 			</div>
 		</div>
-		<!---->
 
 	</main>
 </template>

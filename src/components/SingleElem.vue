@@ -5,7 +5,8 @@ import axios from 'axios';
 export default{
 	data() {
 		return{
-			actors:[]
+			actors:[],
+			type:[]
 		};
 	},
 	props:{
@@ -46,9 +47,11 @@ export default{
 		},
 		getActorsApi(){
 			if(this.actors.length>0){
-				this.actors = []
+				this.actors = [];
+				this.type = [];
 			}
 			else{
+				//le chiamate api che devo effettuare hanno end point differenti
 				const urlActors = "https://api.themoviedb.org/3/movie/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
 				//chiamata API per ricercare i degli attori del film
 				axios.get(urlActors)
@@ -58,6 +61,22 @@ export default{
 					}
 				}).catch((error) => {
 					this.actors = []
+					console.log("Errore ",error);
+				});
+				//chiamata API per ricercare i generi del film
+				const urlType = "https://api.themoviedb.org/3/movie/"+ this.film.id +"?api_key=db9df9f71721b8623e12907efc8216b8"
+				axios.get(urlType)
+				.then((response) => {
+					let i = 0;
+					console.log("Lughezza array",response.data.genres.length)
+					while ((response.data.genres.length - 1 >= i) && i <= 2) {
+						this.type.push(response.data.genres[i].name)
+						console.log("genere",i," ",response.data.genres[i].name)
+						i++
+					}
+					
+				}).catch((error) => {
+					this.type = []
 					console.log("Errore ",error);
 				});
 			}
@@ -86,7 +105,7 @@ export default{
 			<div>
 				<i class="fa-solid fa-star" v-for="(elem,i) in 5" :key="i" :class="{active: film.vote_average >= i}"></i>
 			</div>
-			<div>
+			<div class="overview">
 				{{film.overview}}
 			</div>
 			<div>
@@ -94,8 +113,12 @@ export default{
 				<div v-else>Immagine non trovata</div>
 			</div>
 		</div>
+		<div class="type d-flex flex-column justify-content-between " v-if="(this.type.length>0)">
+			<div class=" px-3 py-1" v-for="(elem,i) in this.type" :key="i">{{ elem }}</div>
+			<div>Genere:</div>
+		</div>
 		<div class="actors " v-if="(this.actors.length>0)">
-			<div>Actors:</div>
+			<div>Attori:</div>
 			<div class=" px-3 py-1" v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
 		</div>
 	</div>
@@ -128,21 +151,42 @@ export default{
 	}
 }
 .actors{
-		position:absolute;
-		bottom:4%;
-		left: 3,5%;
-		width: 250px;
-		background-color: black;
-		border:3px solid white;
-		border-bottom-left-radius: 15px;
-		border-bottom-right-radius: 15px;
-		color:#616161;
+	position:absolute;
+	bottom:4%;
+	left: 3,5%;
+	width: 250px;
+	height: 190px;
+	background-color: black;
+	border:3px solid white;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	color:#616161;
+
 		:first-child{
 			border-bottom: 1px solid white;
 			background-color: #60539bad;
 			color:black;
 			padding:0 20px;
 		}
-	}
+}
+.type{
+	position:absolute;
+	top:4%;
+	left: 3,5%;
+	width: 250px;
+	height: calc(350px - 190px);
+	background-color: black;
+	border:3px solid white;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	color:#616161;
+	
+		:last-child{
+			border-bottom: 1px solid white;
+			background-color: #60539bad;
+			color:black;
+			padding:0 20px;
+		}
+}
 
 </style>

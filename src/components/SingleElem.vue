@@ -75,7 +75,6 @@ export default{
 					
 					while ((response.data.genres.length - 1 >= i) && i <= 2) {
 						this.type.push(response.data.genres[i].name);
-						console.log("genere",i," ",response.data.genres[i].name);
 						i++
 					}
 					if(this.type.length == 0){
@@ -87,6 +86,10 @@ export default{
 					console.log(error)
 				});
 			}
+		},
+		resetTypeActors(){
+			this.actors = [];
+			this.type = [];
 		}
 	},
 	mounted(){
@@ -120,11 +123,11 @@ export default{
 				<div v-else>Immagine non trovata</div>
 			</div>
 		</div>
-		<div class="type d-flex flex-column justify-content-between " v-if="(this.type.length>0)">
+		<div class="type d-flex flex-column justify-content-between " v-if="(this.type.length>0)" @click="resetTypeActors()">
 			<div class=" px-3 py-1" v-for="(elem,i) in this.type" :key="i">{{ elem }}</div>
 			<div>Genere:</div>
 		</div>
-		<div class="actors " v-if="(this.actors.length>0)">
+		<div class="actors " v-if="(this.actors.length>0)" @click="resetTypeActors()">
 			<div>Attori:</div>
 			<div class=" px-3 py-1" v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
 		</div>
@@ -168,10 +171,10 @@ export default{
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
 	color:#616161;
+	background: rgb(0,0,0);
+	background: linear-gradient(0deg, rgba(0,0,0,1) 68%, rgba(229,9,19,1) 96%);
 
 		:first-child{
-			border-bottom: 1px solid white;
-			background-color: #60539bad;
 			color:black;
 			padding:0 20px;
 		}
@@ -187,10 +190,10 @@ export default{
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	color:#616161;
+	background: rgb(0,0,0);
+	background: linear-gradient(180deg, rgba(0,0,0,1) 68%, rgba(229,9,19,1) 96%);
 	
 		:last-child{
-			border-bottom: 1px solid white;
-			background-color: #60539bad;
 			color:black;
 			padding:0 20px;
 		}

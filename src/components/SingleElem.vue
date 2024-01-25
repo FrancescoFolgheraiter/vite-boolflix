@@ -45,17 +45,22 @@ export default{
 			this.film.vote_average = Math.ceil(Math.round(this.film.vote_average) / 2);
 		},
 		getActorsApi(){
-			const urlActors = "https://api.themoviedb.org/3/movie/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
-			//chiamata API per ricercare i degli attori del film
-			axios.get(urlActors)
-			.then((response) => {
-				for (let i = 0; i < 4; i++) {
-					this.actors.push(response.data.cast[i].name)
-				}
-			}).catch((error) => {
+			if(this.actors.length>0){
 				this.actors = []
-				console.log("Errore ",error);
-			});
+			}
+			else{
+				const urlActors = "https://api.themoviedb.org/3/movie/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
+				//chiamata API per ricercare i degli attori del film
+				axios.get(urlActors)
+				.then((response) => {
+					for (let i = 0; i < 5; i++) {
+						this.actors.push(response.data.cast[i].name)
+					}
+				}).catch((error) => {
+					this.actors = []
+					console.log("Errore ",error);
+				});
+			}
 		}
 	},
 	mounted(){
@@ -67,7 +72,7 @@ export default{
 </script>
 
 <template>
-	<div class="col-12 col-sm-6 col-md-3">
+	<div class="col-12 col-sm-6 col-md-3 position-relative">
 		<div class="my-card text-center mb-3 mt-3 text-white" @click="getActorsApi()">
 			<div class="mt-2">
 				{{ name }}
@@ -84,13 +89,14 @@ export default{
 			<div>
 				{{film.overview}}
 			</div>
-			<div class="actors" v-if="(this.actors.length>0)">
-				<div v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
-			</div>
 			<div>
 				<img v-if="(film.poster_path != null)" :src="'http://image.tmdb.org/t/p/w342'+ film.poster_path" alt="">
 				<div v-else>Immagine non trovata</div>
 			</div>
+		</div>
+		<div class="actors " v-if="(this.actors.length>0)">
+			<div>Actors:</div>
+			<div class=" px-3 py-1" v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
 		</div>
 	</div>
 </template>
@@ -108,12 +114,6 @@ export default{
 	.active{
 		color:orange;
 	}
-	.actors{
-		position:absolute;
-		top:0;
-		left:0%;
-		z-index: 1;
-	}
 
 	:last-child img {
 		width:100%;
@@ -127,4 +127,22 @@ export default{
 		}
 	}
 }
+.actors{
+		position:absolute;
+		bottom:4%;
+		left: 3,5%;
+		width: 250px;
+		background-color: black;
+		border:3px solid white;
+		border-bottom-left-radius: 15px;
+		border-bottom-right-radius: 15px;
+		color:#616161;
+		:first-child{
+			border-bottom: 1px solid white;
+			background-color: #60539bad;
+			color:black;
+			padding:0 20px;
+		}
+	}
+
 </style>

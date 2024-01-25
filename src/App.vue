@@ -29,7 +29,7 @@ export default{
 					language: "it"
 				}
 			}).then((response) => {
-				this.store.films= response.data.results;
+				this.store.films = response.data.results;
 			}).catch((error) => {
 				this.store.films = [];
 				console.log("Errore ",error);

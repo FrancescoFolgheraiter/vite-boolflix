@@ -40,7 +40,9 @@ export default{
 
 <template>
 	<main>
-		<Genre v-for="(elem,i) in this.store.genres" :key="i" :genre="elem"/>
+		<ul class="d-flex justify-content-between ">
+			<Genre v-for="(elem,i) in this.store.genres" :key="i" :genre="elem"/>
+		</ul>
 		<div class="container">
 			<div>
 				<h2>
@@ -48,7 +50,7 @@ export default{
 				</h2>
 			</div>
 			<div class="row">
-				<SingleElem  v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title" :typeApi="'movie'"/>
+				<SingleElem  v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title" :typeApi="'movie'" :activeGenre="this.store.activeGenre"/>
 			</div>
 			<div>
 				<h2>
@@ -56,7 +58,7 @@ export default{
 				</h2>
 			</div>
 			<div class="row">
-				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name" :typeApi="'tv'"/>
+				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name" :typeApi="'tv'" :activeGenre="this.store.activeGenre"/>
 			</div>
 		</div>
 
@@ -64,8 +66,11 @@ export default{
 </template>
 
 <style lang ="scss" scoped>
+
+
 h2{
 	color:#616161;
 	margin:20px auto;
 }
+
 </style>

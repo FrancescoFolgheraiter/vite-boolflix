@@ -6,14 +6,16 @@ export default{
 	data() {
 		return{
 			actors:[],
-			type:[]
+			type:[],
+			flagType: false
 		};
 	},
 	props:{
 		film:Object,
 		name:String,
 		originalName:String,
-		typeApi:String	
+		typeApi:String,
+		activeGenre:String	
 	},
 	components:{
 		
@@ -68,7 +70,17 @@ export default{
 					console.log(error)
 				});
 				//chiamata API per ricercare i generi del film
-				const urlType = "https://api.themoviedb.org/3/"+ this.typeApi +"/"+ this.film.id +"?api_key=db9df9f71721b8623e12907efc8216b8"
+				this.getGenresApi();
+			}
+		},
+		resetTypeActors(){
+			this.flagType = !(this.flagType); 
+			this.actors = [];
+			this.type = [];
+		},
+		getGenresApi(){
+			//chiamata API per ricercare i generi del film
+			const urlType = "https://api.themoviedb.org/3/"+ this.typeApi +"/"+ this.film.id +"?api_key=db9df9f71721b8623e12907efc8216b8"
 				axios.get(urlType)
 				.then((response) => {
 					let i = 0;
@@ -85,23 +97,20 @@ export default{
 					this.type = ["non trovato generi"];
 					console.log(error)
 				});
-			}
-		},
-		resetTypeActors(){
-			this.actors = [];
-			this.type = [];
+				
 		}
 	},
 	mounted(){
 		this.createCountryFlag();
-		this.updateVote();	
+		this.updateVote();
+		this.getGenresApi();	
 	}
 }
 
 </script>
 
 <template>
-	<div class="col-12 col-sm-6 col-md-3 position-relative">
+	<div v-if="(this.type.includes(activeGenre) || activeGenre == '')" class="col-12 col-sm-6 col-md-3 position-relative">
 		<div class="my-card text-center mb-3 mt-3 text-white" @click="getActorsApi()">
 			<div class="mt-2">
 				{{ name }}
@@ -123,11 +132,11 @@ export default{
 				<div v-else>Immagine non trovata</div>
 			</div>
 		</div>
-		<div class="type d-flex flex-column justify-content-between " v-if="(this.type.length>0)" @click="resetTypeActors()">
+		<div class="type d-flex flex-column justify-content-between " v-if="(flagType == true)" @click="resetTypeActors()">
 			<div class=" px-3 py-1" v-for="(elem,i) in this.type" :key="i">{{ elem }}</div>
 			<div>Genere:</div>
 		</div>
-		<div class="actors " v-if="(this.actors.length>0)" @click="resetTypeActors()">
+		<div class="actors " v-if="(this.actors.length > 0)" @click="resetTypeActors()">
 			<div>Attori:</div>
 			<div class=" px-3 py-1" v-for="(elem,i) in this.actors" :key="i">{{ elem }}</div>
 		</div>

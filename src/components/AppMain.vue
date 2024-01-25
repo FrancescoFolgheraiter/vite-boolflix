@@ -29,7 +29,7 @@ export default{
 				</h2>
 			</div>
 			<div class="row">
-				<SingleElem  v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title"/>
+				<SingleElem  v-for="(elem, i) in this.store.films" :kay="i" :film="elem" :name="elem.title" :originalName="elem.original_title" :typeApi="'movie'"/>
 			</div>
 			<div>
 				<h2>
@@ -37,7 +37,7 @@ export default{
 				</h2>
 			</div>
 			<div class="row">
-				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name"/>
+				<SingleElem  v-for="(elem, i) in this.store.series" :kay="i" :film="elem" :name="elem.name" :originalName="elem.original_name" :typeApi="'tv'"/>
 			</div>
 		</div>
 

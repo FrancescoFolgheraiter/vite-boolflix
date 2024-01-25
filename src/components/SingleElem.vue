@@ -12,7 +12,8 @@ export default{
 	props:{
 		film:Object,
 		name:String,
-		originalName:String	
+		originalName:String,
+		typeApi:String	
 	},
 	components:{
 		
@@ -46,38 +47,44 @@ export default{
 			this.film.vote_average = Math.ceil(Math.round(this.film.vote_average) / 2);
 		},
 		getActorsApi(){
-			if(this.actors.length>0){
+			if(this.actors.length > 0 || this.type.length > 0 ){
 				this.actors = [];
 				this.type = [];
 			}
 			else{
-				//le chiamate api che devo effettuare hanno end point differenti
-				const urlActors = "https://api.themoviedb.org/3/movie/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
+				//le chiamate api che devo effettuare hanno end point differenti(e devo gestila sia per tv sia per movie)
+				const urlActors = "https://api.themoviedb.org/3/"+ this.typeApi +"/"+ this.film.id +"/credits?api_key=db9df9f71721b8623e12907efc8216b8"
 				//chiamata API per ricercare i degli attori del film
 				axios.get(urlActors)
 				.then((response) => {
 					for (let i = 0; i < 5; i++) {
-						this.actors.push(response.data.cast[i].name)
+						this.actors.push(response.data.cast[i].name);
+					}
+					if(this.actors.length == 0){
+						this.actors = ["non trovato generi"];
 					}
 				}).catch((error) => {
-					this.actors = []
-					console.log("Errore ",error);
+					this.actors = ["non trovati attori"];
+					console.log(error)
 				});
 				//chiamata API per ricercare i generi del film
-				const urlType = "https://api.themoviedb.org/3/movie/"+ this.film.id +"?api_key=db9df9f71721b8623e12907efc8216b8"
+				const urlType = "https://api.themoviedb.org/3/"+ this.typeApi +"/"+ this.film.id +"?api_key=db9df9f71721b8623e12907efc8216b8"
 				axios.get(urlType)
 				.then((response) => {
 					let i = 0;
-					console.log("Lughezza array",response.data.genres.length)
+					
 					while ((response.data.genres.length - 1 >= i) && i <= 2) {
-						this.type.push(response.data.genres[i].name)
-						console.log("genere",i," ",response.data.genres[i].name)
+						this.type.push(response.data.genres[i].name);
+						console.log("genere",i," ",response.data.genres[i].name);
 						i++
+					}
+					if(this.type.length == 0){
+						this.type = ["non trovato generi"];
 					}
 					
 				}).catch((error) => {
-					this.type = []
-					console.log("Errore ",error);
+					this.type = ["non trovato generi"];
+					console.log(error)
 				});
 			}
 		}

@@ -6,5 +6,6 @@ export const store = reactive({
     urlApiFlag: "https://flagsapi.com/IT/flat/64.png",
     films:[],
     series:[],
+    genres:[],
     searchFilm:""
 });

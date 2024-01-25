@@ -144,6 +144,10 @@ export default{
 	overflow: hidden;
 	font-size: 0.8rem;
 	font-weight: bold;
+	-webkit-box-shadow: 0px 0px 29px 10px #E50913;
+	-moz-box-shadow: 0px 0px 29px 10px #E50913;
+	-o-box-shadow: 0px 0px 29px 10px #E50913;
+	box-shadow: 0px 0px 29px 10px #E50913;
 	.active{
 		color:orange;
 	}
@@ -170,13 +174,14 @@ export default{
 	border:3px solid white;
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
-	color:#616161;
+	color:white;
 	background: rgb(0,0,0);
 	background: linear-gradient(0deg, rgba(0,0,0,1) 68%, rgba(229,9,19,1) 96%);
 
 		:first-child{
-			color:black;
 			padding:0 20px;
+			font-size: 1.2rem;
+			font-weight: bold;
 		}
 }
 .type{
@@ -189,13 +194,14 @@ export default{
 	border:3px solid white;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
-	color:#616161;
+	color:white;
 	background: rgb(0,0,0);
 	background: linear-gradient(180deg, rgba(0,0,0,1) 68%, rgba(229,9,19,1) 96%);
 	
 		:last-child{
-			color:black;
 			padding:0 20px;
+			font-size: 1.2rem;
+			font-weight: bold;
 		}
 }
 

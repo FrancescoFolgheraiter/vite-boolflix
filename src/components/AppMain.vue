@@ -1,6 +1,13 @@
 <script>
+//importazione axios
+import axios from 'axios';
+
 //importazione elemento SingleFilm
 import SingleElem from './SingleElem.vue';
+
+//importazione barra generi
+import Genre from './Genre.vue';
+
 //importazione store
 import { store } from '../store.js';
 
@@ -11,10 +18,21 @@ export default{
 		};
 	},
 	components:{
-		SingleElem		
+		SingleElem,
+		Genre		
 	},
 	methods:{
-
+		getGenresApi(){
+			console.log("partia chiamata Genres")
+			axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=db9df9f71721b8623e12907efc8216b8").then((response) => {
+				this.store.genres = response.data.genres
+			}).catch((error) => {
+				console.log("errore",error);
+			})
+		}
+	},
+	mounted(){
+		this.getGenresApi();
 	}
 }
 
@@ -22,6 +40,7 @@ export default{
 
 <template>
 	<main>
+		<Genre v-for="(elem,i) in this.store.genres" :key="i" :genre="elem"/>
 		<div class="container">
 			<div>
 				<h2>

@@ -25,8 +25,8 @@ export default{
 		</div>
 		<form @submit.prevent="$emit('filmSearch')" action="">
 			<input type="text" v-model="store.searchFilm" >
-			<button type="submit">
-				Search
+			<button class="ms-3" type="submit">
+				<i class="fa-solid fa-magnifying-glass"></i>
 			</button>
 		</form>		
 	</header>
@@ -38,10 +38,22 @@ header{
 	background-color: #101010;
 	.container-logo{
 	height: 100px;
-	img{
-		height:100%;
+		img{
+			height:100%;
+		}
 	}
-}
+	input{
+		width:300px;
+		border-radius: 5px;
+		border:1px solid grey;
+	}
+	button{
+			border-radius: 5px;
+			background-color: red;
+			border:1px solid brown;
+			color:white;
+	}
+
 }
 
 </style>

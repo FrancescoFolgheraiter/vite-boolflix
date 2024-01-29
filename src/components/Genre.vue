@@ -37,6 +37,8 @@ li{
 	list-style: none;
 	color:red;
 	border: 1px solid red;
+	border-radius: 5px;
+	padding: 5px;
 }
 .active{
 	background-color: orange;
